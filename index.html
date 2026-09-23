@@ -1,0 +1,2048 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+
+<title>DOCUVIA — Belgesel Platformu</title>
+
+<style>
+:root{
+    --bg:#05060a;
+    --panel:#0c0f16;
+    --panel2:#111621;
+    --line:rgba(255,255,255,.09);
+    --text:#f7f8fb;
+    --muted:#8e97a8;
+    --accent:#7c5cff;
+    --accent2:#00d9ff;
+    --danger:#ff4d67;
+    --radius:22px;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 10% 0%,rgba(124,92,255,.16),transparent 30%),
+        radial-gradient(circle at 90% 10%,rgba(0,217,255,.09),transparent 25%),
+        var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    padding:
+        max(14px,env(safe-area-inset-top))
+        18px
+        14px;
+
+    background:rgba(5,6,10,.78);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border-bottom:1px solid var(--line);
+}
+
+.header-inner{
+    max-width:1450px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:max-content;
+}
+
+.logo-mark{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+
+    display:grid;
+    place-items:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent2)
+        );
+
+    box-shadow:
+        0 10px 30px rgba(124,92,255,.25);
+}
+
+.logo-mark::before{
+    content:"";
+    width:0;
+    height:0;
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+    border-left:13px solid white;
+    margin-left:3px;
+}
+
+.logo-text{
+    font-size:20px;
+    font-weight:850;
+    letter-spacing:-.7px;
+}
+
+.logo-text span{
+    color:#9f90ff;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search{
+    flex:1;
+    max-width:650px;
+    margin:auto;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    height:48px;
+    padding:0 50px 0 18px;
+
+    color:white;
+    background:rgba(255,255,255,.055);
+
+    border:1px solid var(--line);
+    border-radius:16px;
+
+    outline:none;
+    transition:.2s;
+}
+
+.search input:focus{
+    border-color:rgba(124,92,255,.7);
+    box-shadow:0 0 0 4px rgba(124,92,255,.1);
+}
+
+.search button{
+    position:absolute;
+    right:6px;
+    top:6px;
+
+    width:36px;
+    height:36px;
+
+    border-radius:11px;
+    color:white;
+    background:var(--accent);
+}
+
+/* =========================
+   HEADER ACTIONS
+========================= */
+
+.header-actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    width:44px;
+    height:44px;
+    border-radius:14px;
+
+    color:#dfe4ee;
+    background:rgba(255,255,255,.055);
+    border:1px solid var(--line);
+
+    transition:.2s;
+}
+
+.icon-btn:hover{
+    background:rgba(255,255,255,.1);
+    transform:translateY(-1px);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    max-width:1450px;
+    margin:0 auto;
+    padding:55px 18px 30px;
+}
+
+.hero-box{
+    position:relative;
+    overflow:hidden;
+
+    min-height:360px;
+    padding:50px;
+
+    display:flex;
+    align-items:flex-end;
+
+    border:1px solid var(--line);
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5,6,10,.98) 0%,
+            rgba(5,6,10,.82) 38%,
+            rgba(5,6,10,.18) 100%
+        ),
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(0,217,255,.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 70% 70%,
+            rgba(124,92,255,.3),
+            transparent 40%
+        ),
+        #10131c;
+}
+
+.hero-content{
+    max-width:650px;
+    position:relative;
+    z-index:2;
+}
+
+.hero-tag{
+    display:inline-flex;
+    padding:7px 12px;
+    border-radius:999px;
+
+    color:#dcd7ff;
+    background:rgba(124,92,255,.15);
+    border:1px solid rgba(124,92,255,.25);
+
+    font-size:12px;
+    font-weight:750;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:clamp(35px,6vw,65px);
+    line-height:.98;
+    letter-spacing:-3px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    color:#aeb6c6;
+    line-height:1.7;
+    font-size:15px;
+    max-width:600px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:24px;
+    flex-wrap:wrap;
+}
+
+.primary{
+    min-height:46px;
+    padding:0 20px;
+    border-radius:14px;
+
+    color:white;
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            #6250e9
+        );
+
+    font-weight:750;
+}
+
+.secondary{
+    min-height:46px;
+    padding:0 20px;
+    border-radius:14px;
+
+    color:white;
+    background:rgba(255,255,255,.07);
+    border:1px solid var(--line);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    max-width:1450px;
+    margin:auto;
+    padding:0 18px 70px;
+}
+
+.section{
+    margin-top:28px;
+}
+
+.section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.section-head h2{
+    font-size:22px;
+    letter-spacing:-.7px;
+}
+
+.section-head span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* =========================
+   CATEGORIES
+========================= */
+
+.categories{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    padding-bottom:5px;
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    flex:0 0 auto;
+
+    padding:11px 16px;
+
+    color:#cfd5e1;
+    background:rgba(255,255,255,.045);
+    border:1px solid var(--line);
+
+    border-radius:999px;
+
+    transition:.2s;
+}
+
+.category:hover,
+.category.active{
+    color:white;
+    background:rgba(124,92,255,.18);
+    border-color:rgba(124,92,255,.45);
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+    gap:18px;
+}
+
+.card{
+    overflow:hidden;
+    border-radius:19px;
+
+    background:var(--panel);
+    border:1px solid var(--line);
+
+    transition:
+        transform .22s,
+        border-color .22s,
+        box-shadow .22s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(124,92,255,.4);
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.3);
+}
+
+.thumb{
+    position:relative;
+    aspect-ratio:16/9;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151a28,
+            #080a10
+        );
+}
+
+.thumb img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+
+    transition:transform .4s;
+}
+
+.card:hover .thumb img{
+    transform:scale(1.045);
+}
+
+.play{
+    position:absolute;
+    inset:0;
+    margin:auto;
+
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    color:white;
+    background:rgba(0,0,0,.65);
+    border:1px solid rgba(255,255,255,.25);
+
+    backdrop-filter:blur(8px);
+
+    opacity:0;
+    transform:scale(.8);
+    transition:.2s;
+}
+
+.card:hover .play{
+    opacity:1;
+    transform:scale(1);
+}
+
+.play::before{
+    content:"";
+    width:0;
+    height:0;
+    border-top:7px solid transparent;
+    border-bottom:7px solid transparent;
+    border-left:11px solid white;
+    margin-left:3px;
+}
+
+.card-body{
+    padding:14px;
+}
+
+.card-title{
+    font-size:15px;
+    line-height:1.35;
+    font-weight:750;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.card-meta{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    color:var(--muted);
+    font-size:12px;
+
+    margin-top:8px;
+}
+
+.card-actions{
+    display:flex;
+    gap:7px;
+    margin-top:12px;
+}
+
+.card-actions button{
+    flex:1;
+    min-height:36px;
+
+    border-radius:11px;
+
+    color:#cbd2df;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--line);
+}
+
+.card-actions button:hover{
+    background:rgba(255,255,255,.1);
+}
+
+.favorite.active{
+    color:#ff7890;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    min-height:180px;
+
+    display:grid;
+    place-items:center;
+
+    color:var(--muted);
+}
+
+.spinner{
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+    border:3px solid rgba(255,255,255,.1);
+    border-top-color:var(--accent);
+
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    grid-column:1/-1;
+
+    padding:60px 20px;
+    text-align:center;
+
+    border:1px dashed var(--line);
+    border-radius:20px;
+
+    color:var(--muted);
+}
+
+.empty strong{
+    display:block;
+    color:white;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+/* =========================
+   LOAD MORE
+========================= */
+
+.load-more{
+    display:flex;
+    justify-content:center;
+    margin-top:25px;
+}
+
+#loadMore{
+    min-width:180px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:18px;
+
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(15px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(1000px,100%);
+    max-height:92vh;
+    overflow:auto;
+
+    border-radius:25px;
+
+    background:#0a0d14;
+    border:1px solid var(--line);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.65);
+}
+
+.modal-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:14px 16px;
+
+    border-bottom:1px solid var(--line);
+}
+
+.modal-title{
+    font-weight:800;
+}
+
+.close{
+    width:40px;
+    height:40px;
+
+    border-radius:12px;
+
+    color:white;
+    background:rgba(255,255,255,.07);
+}
+
+.video-wrap{
+    background:#000;
+    aspect-ratio:16/9;
+}
+
+.video-wrap video{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+.modal-info{
+    padding:20px;
+}
+
+.modal-info h2{
+    font-size:22px;
+    margin-bottom:9px;
+}
+
+.modal-info p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:14px;
+}
+
+.source-link{
+    display:inline-flex;
+    margin-top:15px;
+    padding:11px 15px;
+
+    border-radius:12px;
+
+    color:white;
+    background:rgba(124,92,255,.15);
+    border:1px solid rgba(124,92,255,.3);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    z-index:1000;
+
+    transform:
+        translate(-50%,20px);
+
+    padding:12px 17px;
+
+    color:white;
+    background:#151a24;
+    border:1px solid var(--line);
+
+    border-radius:13px;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
+    .grid{
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+    }
+}
+
+@media(max-width:750px){
+
+    .header-inner{
+        flex-wrap:wrap;
+    }
+
+    .logo{
+        order:1;
+    }
+
+    .header-actions{
+        order:2;
+        margin-left:auto;
+    }
+
+    .search{
+        order:3;
+        flex-basis:100%;
+    }
+
+    .hero{
+        padding-top:22px;
+    }
+
+    .hero-box{
+        min-height:400px;
+        padding:30px 23px;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(5,6,10,.15),
+                rgba(5,6,10,.98)
+            ),
+            radial-gradient(
+                circle at 70% 20%,
+                rgba(124,92,255,.3),
+                transparent 45%
+            ),
+            #10131c;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .grid{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+        gap:12px;
+    }
+
+    .card-body{
+        padding:11px;
+    }
+
+    .card-title{
+        font-size:13px;
+    }
+
+    .card-actions button{
+        font-size:11px;
+    }
+}
+
+@media(max-width:430px){
+
+    .logo-text{
+        font-size:18px;
+    }
+
+    .logo-mark{
+        width:38px;
+        height:38px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-box{
+        min-height:430px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <a href="#" class="logo">
+
+            <div class="logo-mark"></div>
+
+            <div class="logo-text">
+                DOCU<span>VIA</span>
+            </div>
+
+        </a>
+
+        <form class="search" id="searchForm">
+
+            <input
+                id="searchInput"
+                type="search"
+                autocomplete="off"
+                placeholder="Belgesel, uzay, bilim, tarih..."
+            >
+
+            <button type="submit">
+                ↗
+            </button>
+
+        </form>
+
+        <div class="header-actions">
+
+            <button
+                class="icon-btn"
+                id="favoritesBtn"
+                title="Favoriler"
+            >
+                ♡
+            </button>
+
+            <button
+                class="icon-btn"
+                id="historyBtn"
+                title="Geçmiş"
+            >
+                ◷
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-box">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                BELGESEL KEŞFET
+            </div>
+
+            <h1>
+                Dünyayı<br>
+                keşfet.
+            </h1>
+
+            <p>
+                Bilimden uzaya, tarihten doğaya kadar
+                binlerce içeriği tek bir yerde keşfet.
+                Aradığın konuyu yaz ve izlemeye başla.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button
+                    class="primary"
+                    id="discoverBtn"
+                >
+                    Keşfet
+                </button>
+
+                <button
+                    class="secondary"
+                    id="randomBtn"
+                >
+                    Rastgele Belgesel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main>
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2>Kategoriler</h2>
+
+            <span>
+                Konunu seç
+            </span>
+
+        </div>
+
+        <div
+            class="categories"
+            id="categories"
+        ></div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-head">
+
+            <h2 id="sectionTitle">
+                Belgeseller
+            </h2>
+
+            <span id="resultInfo">
+                Keşfetmeye başla
+            </span>
+
+        </div>
+
+        <div
+            class="grid"
+            id="videoGrid"
+        ></div>
+
+        <div
+            class="loading"
+            id="loading"
+        >
+            <div class="spinner"></div>
+        </div>
+
+        <div class="load-more">
+
+            <button
+                class="secondary"
+                id="loadMore"
+            >
+                Daha Fazla
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     VIDEO MODAL
+========================= -->
+
+<div
+    class="modal"
+    id="videoModal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-top">
+
+            <div
+                class="modal-title"
+                id="modalTitle"
+            >
+                Belgesel
+            </div>
+
+            <button
+                class="close"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="video-wrap">
+
+            <video
+                id="videoPlayer"
+                controls
+                playsinline
+                preload="metadata"
+            ></video>
+
+        </div>
+
+        <div class="modal-info">
+
+            <h2 id="infoTitle">
+                Belgesel
+            </h2>
+
+            <p id="infoDescription">
+                Açıklama yükleniyor...
+            </p>
+
+            <a
+                id="sourceLink"
+                class="source-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Kaynak sayfasını aç
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+"use strict";
+
+/* =====================================================
+   STATE
+===================================================== */
+
+const state = {
+    query: "documentary",
+    page: 1,
+    loading: false,
+    hasMore: true,
+    videos: [],
+    mode: "discover"
+};
+
+
+/* =====================================================
+   ELEMENTLER
+===================================================== */
+
+const grid =
+    document.getElementById("videoGrid");
+
+const loading =
+    document.getElementById("loading");
+
+const loadMore =
+    document.getElementById("loadMore");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const searchForm =
+    document.getElementById("searchForm");
+
+const categories =
+    document.getElementById("categories");
+
+const sectionTitle =
+    document.getElementById("sectionTitle");
+
+const resultInfo =
+    document.getElementById("resultInfo");
+
+const modal =
+    document.getElementById("videoModal");
+
+const videoPlayer =
+    document.getElementById("videoPlayer");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const infoTitle =
+    document.getElementById("infoTitle");
+
+const infoDescription =
+    document.getElementById("infoDescription");
+
+const sourceLink =
+    document.getElementById("sourceLink");
+
+const toast =
+    document.getElementById("toast");
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2200);
+}
+
+
+/* =====================================================
+   LOCAL STORAGE
+===================================================== */
+
+function getFavorites(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "docuvia_favorites"
+            ) || "[]"
+        );
+
+    }catch{
+
+        return [];
+
+    }
+
+}
+
+
+function saveFavorites(items){
+
+    localStorage.setItem(
+        "docuvia_favorites",
+        JSON.stringify(items)
+    );
+
+}
+
+
+function getHistory(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "docuvia_history"
+            ) || "[]"
+        );
+
+    }catch{
+
+        return [];
+
+    }
+
+}
+
+
+function saveHistory(items){
+
+    localStorage.setItem(
+        "docuvia_history",
+        JSON.stringify(items)
+    );
+
+}
+
+
+/* =====================================================
+   FAVORİ
+===================================================== */
+
+function isFavorite(id){
+
+    return getFavorites()
+        .some(item => item.identifier === id);
+
+}
+
+
+function toggleFavorite(video){
+
+    let favorites =
+        getFavorites();
+
+    const exists =
+        favorites.some(
+            item =>
+                item.identifier === video.identifier
+        );
+
+    if(exists){
+
+        favorites =
+            favorites.filter(
+                item =>
+                    item.identifier !== video.identifier
+            );
+
+        showToast("Favorilerden çıkarıldı");
+
+    }else{
+
+        favorites.unshift(video);
+
+        showToast("Favorilere eklendi");
+
+    }
+
+    saveFavorites(favorites);
+
+    renderCurrent();
+}
+
+
+/* =====================================================
+   GEÇMİŞ
+===================================================== */
+
+function addHistory(video){
+
+    let history =
+        getHistory();
+
+    history =
+        history.filter(
+            item =>
+                item.identifier !== video.identifier
+        );
+
+    history.unshift({
+        ...video,
+        watchedAt:Date.now()
+    });
+
+    history =
+        history.slice(0,50);
+
+    saveHistory(history);
+}
+
+
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+   KATEGORİLER
+===================================================== */
+
+async function loadCategories(){
+
+    try{
+
+        const response =
+            await fetch("/api/categories");
+
+        const data =
+            await response.json();
+
+        categories.innerHTML = "";
+
+        data.categories.forEach(
+            (category,index) => {
+
+                const button =
+                    document.createElement("button");
+
+                button.className =
+                    "category" +
+                    (index === 0 ? " active" : "");
+
+                button.textContent =
+                    category.name;
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        document
+                            .querySelectorAll(".category")
+                            .forEach(
+                                x =>
+                                    x.classList.remove("active")
+                            );
+
+                        button.classList.add("active");
+
+                        searchInput.value =
+                            category.query;
+
+                        searchVideos(
+                            category.query,
+                            category.name
+                        );
+
+                    }
+                );
+
+                categories.appendChild(button);
+
+            }
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   ARAMA
+===================================================== */
+
+async function searchVideos(
+    query,
+    title = "Arama Sonuçları"
+){
+
+    if(state.loading){
+        return;
+    }
+
+    state.query =
+        query.trim() || "documentary";
+
+    state.page = 1;
+    state.videos = [];
+    state.hasMore = true;
+    state.mode = "search";
+
+    sectionTitle.textContent =
+        title;
+
+    grid.innerHTML = "";
+
+    await fetchVideos(true);
+
+}
+
+
+/* =====================================================
+   VİDEOLAR
+===================================================== */
+
+async function fetchVideos(reset = false){
+
+    if(state.loading){
+        return;
+    }
+
+    if(!state.hasMore && !reset){
+        return;
+    }
+
+    state.loading = true;
+
+    loading.style.display =
+        "grid";
+
+    loadMore.disabled =
+        true;
+
+    try{
+
+        const url =
+            "/api/search?q=" +
+            encodeURIComponent(state.query) +
+            "&page=" +
+            state.page;
+
+        const response =
+            await fetch(url);
+
+        if(!response.ok){
+            throw new Error(
+                "Sunucu hatası"
+            );
+        }
+
+        const data =
+            await response.json();
+
+        if(!data.ok){
+            throw new Error(
+                data.error ||
+                "Arama başarısız"
+            );
+        }
+
+        const videos =
+            Array.isArray(data.videos)
+                ? data.videos
+                : [];
+
+        if(reset){
+
+            state.videos =
+                videos;
+
+        }else{
+
+            state.videos.push(
+                ...videos
+            );
+
+        }
+
+        state.hasMore =
+            Boolean(data.nextPage);
+
+        if(state.hasMore){
+
+            state.page =
+                Number(data.nextPage);
+
+        }
+
+        renderVideos();
+
+        resultInfo.textContent =
+            state.videos.length +
+            " sonuç";
+
+    }catch(error){
+
+        console.error(error);
+
+        if(state.videos.length === 0){
+
+            grid.innerHTML = `
+                <div class="empty">
+                    <strong>İçerik yüklenemedi</strong>
+                    Sunucu bağlantısını kontrol et.
+                </div>
+            `;
+
+        }
+
+    }finally{
+
+        state.loading = false;
+
+        loading.style.display =
+            "none";
+
+        loadMore.disabled =
+            !state.hasMore;
+
+    }
+
+}
+
+
+/* =====================================================
+   KARTLARI RENDER
+===================================================== */
+
+function renderVideos(){
+
+    grid.innerHTML = "";
+
+    if(state.videos.length === 0){
+
+        grid.innerHTML = `
+            <div class="empty">
+                <strong>Henüz içerik yok</strong>
+                Arama sistemi bağlandığında
+                sonuçlar burada görünecek.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    state.videos.forEach(
+        video => {
+
+            grid.appendChild(
+                createCard(video)
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   KART
+===================================================== */
+
+function createCard(video){
+
+    const card =
+        document.createElement("article");
+
+    card.className =
+        "card";
+
+    const favorite =
+        isFavorite(video.identifier);
+
+    const title =
+        video.title ||
+        "İsimsiz Belgesel";
+
+    const description =
+        video.description ||
+        "Bu belgesel hakkında ayrıntılı bilgi için kaynak sayfasını açabilirsiniz.";
+
+    const year =
+        video.year ||
+        "—";
+
+    const creator =
+        video.creator ||
+        "DOCUVIA";
+
+    const thumb =
+        video.thumbnail ||
+        "data:image/svg+xml," +
+        encodeURIComponent(`
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="800"
+                 height="450">
+                <rect width="100%"
+                      height="100%"
+                      fill="#111621"/>
+                <text x="50%"
+                      y="50%"
+                      dominant-baseline="middle"
+                      text-anchor="middle"
+                      fill="#8e97a8"
+                      font-size="28"
+                      font-family="Arial">
+                    DOCUVIA
+                </text>
+            </svg>
+        `);
+
+    card.innerHTML = `
+
+        <div class="thumb">
+
+            <img
+                src="${escapeHTML(thumb)}"
+                alt="${escapeHTML(title)}"
+                loading="lazy"
+            >
+
+            <button
+                class="play"
+                aria-label="Oynat"
+            ></button>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="card-title">
+                ${escapeHTML(title)}
+            </div>
+
+            <div class="card-meta">
+                <span>${escapeHTML(String(year))}</span>
+                <span>•</span>
+                <span>${escapeHTML(creator)}</span>
+            </div>
+
+            <div class="card-actions">
+
+                <button
+                    class="watch-btn"
+                >
+                    İzle
+                </button>
+
+                <button
+                    class="favorite ${
+                        favorite ? "active" : ""
+                    }"
+                >
+                    ${favorite ? "♥" : "♡"}
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    card
+        .querySelector(".watch-btn")
+        .addEventListener(
+            "click",
+            () => openVideo(video)
+        );
+
+    card
+        .querySelector(".play")
+        .addEventListener(
+            "click",
+            () => openVideo(video)
+        );
+
+    card
+        .querySelector(".favorite")
+        .addEventListener(
+            "click",
+            () => toggleFavorite(video)
+        );
+
+    return card;
+
+}
+
+
+/* =====================================================
+   VİDEO AÇ
+===================================================== */
+
+function openVideo(video){
+
+    addHistory(video);
+
+    modal.classList.add("show");
+
+    const title =
+        video.title ||
+        "Belgesel";
+
+    modalTitle.textContent =
+        title;
+
+    infoTitle.textContent =
+        title;
+
+    infoDescription.textContent =
+        video.description ||
+        "Bu içerik için açıklama bulunmuyor.";
+
+    sourceLink.href =
+        video.sourceUrl ||
+        video.watchUrl ||
+        "#";
+
+    sourceLink.style.display =
+        video.sourceUrl ||
+        video.watchUrl
+            ? "inline-flex"
+            : "none";
+
+    videoPlayer.pause();
+
+    videoPlayer.removeAttribute(
+        "src"
+    );
+
+    videoPlayer.load();
+
+    if(video.videoUrl){
+
+        videoPlayer.src =
+            video.videoUrl;
+
+        videoPlayer.load();
+
+        videoPlayer.play()
+            .catch(() => {});
+
+    }
+
+}
+
+
+/* =====================================================
+   MODAL KAPAT
+===================================================== */
+
+function closeVideo(){
+
+    videoPlayer.pause();
+
+    videoPlayer.removeAttribute(
+        "src"
+    );
+
+    videoPlayer.load();
+
+    modal.classList.remove(
+        "show"
+    );
+
+}
+
+document
+    .getElementById("closeModal")
+    .addEventListener(
+        "click",
+        closeVideo
+    );
+
+
+modal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === modal){
+
+            closeVideo();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            closeVideo();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ARAMA FORMU
+===================================================== */
+
+searchForm.addEventListener(
+    "submit",
+    event => {
+
+        event.preventDefault();
+
+        const query =
+            searchInput.value.trim();
+
+        if(!query){
+
+            showToast(
+                "Bir konu yazmalısın"
+            );
+
+            return;
+
+        }
+
+        searchVideos(
+            query,
+            `"${query}" sonuçları`
+        );
+
+    }
+);
+
+
+/* =====================================================
+   DAHA FAZLA
+===================================================== */
+
+loadMore.addEventListener(
+    "click",
+    () => {
+
+        fetchVideos(false);
+
+    }
+);
+
+
+/* =====================================================
+   KEŞFET
+===================================================== */
+
+document
+    .getElementById("discoverBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            document
+                .querySelector(".section")
+                .scrollIntoView({
+                    behavior:"smooth"
+                });
+
+        }
+    );
+
+
+/* =====================================================
+   RASTGELE
+===================================================== */
+
+document
+    .getElementById("randomBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            const randomQueries = [
+                "uzay belgeseli",
+                "bilim belgeseli",
+                "doğa belgeseli",
+                "tarih belgeseli",
+                "hayvan belgeseli",
+                "okyanus belgeseli",
+                "arkeoloji belgeseli",
+                "teknoloji belgeseli"
+            ];
+
+            const query =
+                randomQueries[
+                    Math.floor(
+                        Math.random() *
+                        randomQueries.length
+                    )
+                ];
+
+            searchInput.value =
+                query;
+
+            searchVideos(
+                query,
+                "Rastgele Keşif"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   FAVORİLER
+===================================================== */
+
+document
+    .getElementById("favoritesBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            const favorites =
+                getFavorites();
+
+            state.videos =
+                favorites;
+
+            state.hasMore =
+                false;
+
+            state.mode =
+                "favorites";
+
+            sectionTitle.textContent =
+                "Favorilerim";
+
+            resultInfo.textContent =
+                favorites.length +
+                " kayıt";
+
+            renderVideos();
+
+            document
+                .querySelector(".section")
+                .scrollIntoView({
+                    behavior:"smooth"
+                });
+
+        }
+    );
+
+
+/* =====================================================
+   GEÇMİŞ
+===================================================== */
+
+document
+    .getElementById("historyBtn")
+    .addEventListener(
+        "click",
+        () => {
+
+            const history =
+                getHistory();
+
+            state.videos =
+                history;
+
+            state.hasMore =
+                false;
+
+            state.mode =
+                "history";
+
+            sectionTitle.textContent =
+                "İzleme Geçmişi";
+
+            resultInfo.textContent =
+                history.length +
+                " kayıt";
+
+            renderVideos();
+
+            document
+                .querySelector(".section")
+                .scrollIntoView({
+                    behavior:"smooth"
+                });
+
+        }
+    );
+
+
+/* =====================================================
+   CURRENT RENDER
+===================================================== */
+
+function renderCurrent(){
+
+    if(
+        state.mode === "favorites" ||
+        state.mode === "history"
+    ){
+
+        renderVideos();
+
+        return;
+
+    }
+
+    renderVideos();
+
+}
+
+
+/* =====================================================
+   BAŞLAT
+===================================================== */
+
+async function init(){
+
+    await loadCategories();
+
+    searchInput.value =
+        "documentary";
+
+    await searchVideos(
+        "documentary",
+        "Öne Çıkan Belgeseller"
+    );
+
+}
+
+init();
+
+</script>
+
+</body>
+</html>
