@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Numera — Virtual Number Generator</title>
+
+<style>
+:root{
+  --bg:#07080d;
+  --panel:rgba(18,20,29,.78);
+  --panel2:#11141d;
+  --line:rgba(255,255,255,.09);
+  --text:#f7f8fc;
+  --muted:#8e94a6;
+  --accent:#7c5cff;
+  --accent2:#9b87ff;
+  --danger:#ff5f6d;
+  --success:#4ade80;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(124,92,255,.18),transparent 28%),
+    radial-gradient(circle at 85% 80%,rgba(74,222,128,.07),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,
+select{
+  font:inherit;
+}
+
+.app{
+  width:min(1050px,100%);
+  margin:auto;
+  padding:28px 18px 60px;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:42px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--accent),#4f8cff);
+  box-shadow:0 10px 35px rgba(124,92,255,.35);
+  font-weight:900;
+  font-size:19px;
+}
+
+.brand h1{
+  font-size:20px;
+  letter-spacing:-.5px;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:2px;
+}
+
+.status{
+  border:1px solid rgba(74,222,128,.18);
+  background:rgba(74,222,128,.07);
+  color:var(--success);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:12px;
+}
+
+.hero{
+  text-align:center;
+  max-width:760px;
+  margin:0 auto 34px;
+}
+
+.hero h2{
+  font-size:clamp(38px,7vw,68px);
+  line-height:1;
+  letter-spacing:-3px;
+  margin-bottom:16px;
+  background:linear-gradient(100deg,#fff,#a99cff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:15px;
+}
+
+.generator{
+  border:1px solid var(--line);
+  background:var(--panel);
+  backdrop-filter:blur(24px);
+  border-radius:28px;
+  padding:22px;
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr 180px auto;
+  gap:12px;
+}
+
+.field{
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 15px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+select{
+  width:100%;
+  background:transparent;
+  color:var(--text);
+  border:0;
+  outline:0;
+  cursor:pointer;
+}
+
+select option{
+  background:#151722;
+}
+
+.generate{
+  border:0;
+  border-radius:16px;
+  padding:0 24px;
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),#5d7cff);
+  box-shadow:0 12px 30px rgba(124,92,255,.28);
+  transition:.2s;
+}
+
+.generate:hover{
+  transform:translateY(-2px);
+  box-shadow:0 16px 38px rgba(124,92,255,.4);
+}
+
+.generate:active{
+  transform:scale(.97);
+}
+
+.results{
+  margin-top:18px;
+  display:grid;
+  gap:10px;
+}
+
+.number-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:17px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
+  border-radius:18px;
+  animation:appear .35s ease both;
+}
+
+.number-info{
+  min-width:0;
+}
+
+.number{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:.4px;
+}
+
+.meta{
+  display:flex;
+  gap:8px;
+  margin-top:7px;
+  flex-wrap:wrap;
+}
+
+.badge{
+  font-size:10px;
+  color:var(--muted);
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+}
+
+.copy{
+  flex-shrink:0;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  color:white;
+  border-radius:11px;
+  padding:9px 12px;
+  cursor:pointer;
+}
+
+.copy:hover{
+  background:rgba(255,255,255,.11);
+}
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:55px 20px;
+}
+
+.info{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.info-card{
+  padding:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  border-radius:18px;
+}
+
+.info-card strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.info-card p{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.notice{
+  margin-top:18px;
+  text-align:center;
+  color:#777d8f;
+  font-size:11px;
+  line-height:1.6;
+}
+
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@media(max-width:720px){
+  .controls{
+    grid-template-columns:1fr;
+  }
+
+  .generate{
+    height:52px;
+  }
+
+  .info{
+    grid-template-columns:1fr;
+  }
+
+  header{
+    margin-bottom:30px;
+  }
+
+  .hero h2{
+    letter-spacing:-2px;
+  }
+
+  .number-card{
+    align-items:flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="brand">
+    <div class="logo">N</div>
+    <div>
+      <h1>Numera</h1>
+      <span>Virtual Number Generator</span>
+    </div>
+  </div>
+
+  <div class="status">● Sistem aktif</div>
+</header>
+
+<section class="hero">
+  <h2>Sanal numara.<br>Tek tıkla.</h2>
+  <p>
+    Test ve demo projelerin için gerçek kişilere ait olmayan
+    sanal telefon numarası formatları oluştur.
+  </p>
+</section>
+
+<section class="generator">
+
+  <div class="controls">
+
+    <div class="field">
+      <label>ÜLKE</label>
+      <select id="country">
+        <option value="TR">🇹🇷 Türkiye (+90)</option>
+        <option value="US">🇺🇸 ABD (+1)</option>
+        <option value="GB">🇬🇧 Birleşik Krallık (+44)</option>
+        <option value="DE">🇩🇪 Almanya (+49)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>ADET</label>
+      <select id="amount">
+        <option value="1">1 numara</option>
+        <option value="5">5 numara</option>
+        <option value="10">10 numara</option>
+        <option value="25">25 numara</option>
+        <option value="50">50 numara</option>
+        <option value="100">100 numara</option>
+      </select>
+    </div>
+
+    <button class="generate" id="generate">
+      Numara Oluştur
+    </button>
+
+  </div>
+
+  <div class="results" id="results">
+    <div class="empty">
+      Henüz numara oluşturulmadı.<br>
+      Yukarıdan ülke ve adet seç.
+    </div>
+  </div>
+
+</section>
+
+<div class="info">
+
+  <div class="info-card">
+    <strong>⚡ Hızlı</strong>
+    <p>Tek istekte 100 adede kadar sanal numara formatı oluştur.</p>
+  </div>
+
+  <div class="info-card">
+    <strong>🌍 Çoklu ülke</strong>
+    <p>Farklı ülke formatları arasında kolayca geçiş yap.</p>
+  </div>
+
+  <div class="info-card">
+    <strong>📋 Kolay kopyalama</strong>
+    <p>Oluşturulan numarayı tek dokunuşla panoya kopyala.</p>
+  </div>
+
+</div>
+
+<div class="notice">
+  Bu uygulamadaki numaralar gerçek telefon numarası değildir.
+  SMS veya arama alamaz ve herhangi bir kişiye tahsis edilmez.
+  Yalnızca demo, test ve arayüz geliştirme amacıyla oluşturulur.
+</div>
+
+</div>
+
+<script>
+const generateButton = document.getElementById("generate");
+const results = document.getElementById("results");
+const country = document.getElementById("country");
+const amount = document.getElementById("amount");
+
+generateButton.addEventListener("click", generateNumbers);
+
+async function generateNumbers(){
+
+  generateButton.disabled = true;
+  generateButton.textContent = "Oluşturuluyor...";
+
+  results.innerHTML = `
+    <div class="empty">
+      Sanal numaralar hazırlanıyor...
+    </div>
+  `;
+
+  try{
+
+    const response = await fetch(
+      `/api/generate?country=${encodeURIComponent(country.value)}&amount=${amount.value}`
+    );
+
+    const data = await response.json();
+
+    if(!data.success){
+      throw new Error(data.error || "Bir hata oluştu.");
+    }
+
+    results.innerHTML = "";
+
+    data.numbers.forEach((item,index)=>{
+
+      const card = document.createElement("div");
+      card.className = "number-card";
+      card.style.animationDelay = `${index * 25}ms`;
+
+      card.innerHTML = `
+        <div class="number-info">
+          <div class="number">${escapeHTML(item.number)}</div>
+
+          <div class="meta">
+            <span class="badge">${escapeHTML(item.countryName)}</span>
+            <span class="badge">Sanal</span>
+            <span class="badge">Demo</span>
+          </div>
+        </div>
+
+        <button class="copy" data-number="${escapeHTML(item.number)}">
+          Kopyala
+        </button>
+      `;
+
+      results.appendChild(card);
+    });
+
+    document.querySelectorAll(".copy").forEach(button=>{
+      button.addEventListener("click", async ()=>{
+        const value = button.dataset.number;
+
+        try{
+          await navigator.clipboard.writeText(value);
+          button.textContent = "Kopyalandı ✓";
+
+          setTimeout(()=>{
+            button.textContent = "Kopyala";
+          },1500);
+
+        }catch{
+          button.textContent = "Kopyalanamadı";
+        }
+      });
+    });
+
+  }catch(error){
+
+    results.innerHTML = `
+      <div class="empty">
+        ${escapeHTML(error.message)}
+      </div>
+    `;
+
+  }finally{
+
+    generateButton.disabled = false;
+    generateButton.textContent = "Numara Oluştur";
+  }
+}
+
+function escapeHTML(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+</script>
+
+</body>
+</html>
+
+Bu ikisini koyunca yapı:
+
+TURKAI/
+├── server.js
+└── public/
+    └── index.html
+
+ve "node server.js" ile açılır.
